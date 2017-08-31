@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 500px;
+            height: 200px;
+            margin: 0 auto;
+        }
+        
+        .box button {
+            width: 100px;
+            height: 30px;
+            margin: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <button data-clipScreen='clipBtn'>截图</button>
+        <button data-cancelclipScreen='clipBtn'>取消</button>
+    </div>
+</body>
+<script>
+    require('./screen/renderProcess/main-process');
+</script>
+
+</html>

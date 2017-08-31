@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            -webkit-app-region: no-drag;
+        }
+        
+        html,
+        body {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden
+        }
+        
+        #canvasMask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            cursor: move;
+            display: none;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .tipNum {
+            position: absolute;
+            background: rgba(0, 0, 0, .8);
+            color: #FFF;
+            z-index: 3;
+            /*display: none;*/
+            font-size: 12px;
+            cursor: pointer;
+        }
+        #canvas{
+            position: absolute;
+        }
+        .tool {
+            display: none;
+            position: absolute;
+            background: #FFF;
+            height: 20px;
+            width: 200px;
+            z-index: 4;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id='canvas'></canvas>
+    <canvas id='canvasMask' data-drag='drag'></canvas>
+    <!--<div data-drag='drag' id='drag'></div>-->
+    <span class="tipNum">200x200</span>
+    <div class="tool">
+        <span data-save='save'>保存</span>
+        <span data-done='done'>完成</span>
+        <span data-cancel='cancel'>取消</span>
+        <span data-close='close'>关闭</span>
+    </div>
+</body>
+<script>
+    require('./index');
+</script>
+
+</html>
