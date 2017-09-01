@@ -13,23 +13,28 @@ var win = null;
 // 点击事件绑定
 document.body.addEventListener('click', function(event) {
     if (event.target.dataset.clipscreen) {
-
         if (!win) {
             capturer().then(function(data) {
                 win = createChildWin('/index.html', { fullscreen: true, width: 900, height: 800, alwaysOnTop: true, skipTaskbar: false, autoHideMenuBar: true, });
-                win.webContents.openDevTools()
+                // win.webContents.openDevTools()
             });
         }
         return false;
-    } else if (event.target.dataset.cancelclipscreen) {
-        win && clearWindow(win)
-        win = null;
     }
 })
 
-ipc.on('global-shortcut-quit', (sender) => {
-    debugger
+// 去除默认选择
+document.onselectstart = function(){
+    return false;
+}
+
+ipc.on('global-shortcut-capture',function(){
+    capturer().then(function(data) {
+        win = createChildWin('/index.html', { fullscreen: true, width: 900, height: 800, alwaysOnTop: true, skipTaskbar: false, autoHideMenuBar: true, });
+        // win.webContents.openDevTools()
+    });
 })
+
 // 接受截图退出事件
 ipc.on('quit-cut', (message) => {
     win && clearWindow(win);
