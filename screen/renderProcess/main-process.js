@@ -16,7 +16,7 @@ document.body.addEventListener('click', function(event) {
         if (!win) {
             capturer().then(function(data) {
                 win = createChildWin('/index.html', { fullscreen: true, width: 900, height: 800, alwaysOnTop: true, skipTaskbar: false, autoHideMenuBar: true, });
-                // win.webContents.openDevTools()
+                win.webContents.openDevTools()
             });
         }
         return false;

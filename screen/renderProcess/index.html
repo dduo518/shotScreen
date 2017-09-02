@@ -47,13 +47,77 @@
             position: absolute;
         }
         .tool {
+            border-radius: 2px;
             display: none;
             position: absolute;
             background: #FFF;
             height: 20px;
-            width: 200px;
+            width: 110px;
             z-index: 4;
             cursor: pointer;
+        }
+        .tool span{
+            padding-left: 2px;
+            vertical-align: middle;
+            /* border: 1px solid #a9a6a6; */
+            display: inline-block;
+            background-size: 16px;
+            width:20px;
+            height: 16px;
+        }
+        .save{
+            background: url('./asset/images/save.png') center center no-repeat;
+        }
+        .back{
+            background: url('./asset/images/back.png') center center no-repeat;
+        }
+        .ok{
+            background: url('./asset/images/ok.png') center center no-repeat;
+        }
+        .cancel{
+            background: url('./asset/images/cancel.png') center center no-repeat;
+        }
+        .icon{
+            display: inline-block;
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background:transparent;
+            border:4px solid red;
+            display: none;
+            z-index: 99;
+        }
+        .left_top{
+            /* left:10px;
+            top:10px; */
+            border-bottom: 0;
+            border-right: 0;
+            cursor: nwse-resize;
+
+        }
+        .left_bottom{
+            /* left:80px;
+            top:10px; */
+            border-top: 0;
+            border-right: 0;
+            cursor:nesw-resize;
+
+        }
+        .right_top{
+            /* left:10px;
+            top:80px; */
+            border-bottom: 0;
+            border-left: 0;
+            cursor: nesw-resize;
+
+        }
+        .right_bottom{
+            /* left:80px;
+            top:80px; */
+            border-top: 0;
+            border-left: 0;
+            cursor: nwse-resize;
+
         }
     </style>
 </head>
@@ -64,11 +128,15 @@
     <!--<div data-drag='drag' id='drag'></div>-->
     <span class="tipNum">200x200</span>
     <div class="tool">
-        <span data-save='save'>保存</span>
-        <span data-done='done'>完成</span>
-        <span data-cancel='cancel'>取消</span>
-        <span data-close='close'>关闭</span>
+        <span data-save='save' class="save" title="保存"></span>
+        <span data-done='done' class="ok" title="完成"></span>
+        <span data-cancel='cancel' class="back" title="取消截图"></span>
+        <span data-close='close' class="cancel" title="退出截图"></span>
     </div>
+    <span data-save='left_top' class="icon left_top"></span>
+    <span data-save='right_top' class="icon right_top"></span>
+    <span data-save='left_bottom' class="icon left_bottom"></span>
+    <span data-save='right_bottom' class="icon right_bottom"></span>
 </body>
 <script>
     require('./index');

@@ -27,8 +27,16 @@ class Screen {
 
         this.cuted = false;
         this.isShowTool = false;
+
         this.tool = document.querySelectorAll('.tool')[0];
         this.tip = document.querySelectorAll('.tipNum')[0];
+
+        this.leftTopCursor = document.querySelectorAll('.left_top')[0];
+        this.rightTopCursor = document.querySelectorAll('.right_top')[0];
+        this.leftBottomCursor = document.querySelectorAll('.left_bottom')[0];
+        this.rightBottomCursor = document.querySelectorAll('.right_bottom')[0];
+
+        
 
 
         // 原本是将屏幕截图image画到this.context画布上的 
@@ -101,12 +109,14 @@ class Screen {
             } else if (ev.target.dataset.close) {
                 that.close();
                 return false;
-            } else if (ev.target.dataset.drag) {
+            } 
+            else if (ev.target.dataset.drag) {
                 that.canvas_x = ev.clientX - that.canvasMask.offsetLeft;
                 that.canvas_y = ev.clientY - that.canvasMask.offsetTop;
                 document.addEventListener('mousemove', move, false);
                 return false;
-            } else {
+            } 
+            else {
                 that.start.x = ev.pageX;
                 that.start.y = ev.pageY;
                 document.addEventListener('mousemove', move, false);
@@ -138,15 +148,18 @@ class Screen {
                 end.y = ev.pageY;
                 document.removeEventListener('mousemove', move);
                 that.isShowTool && that.showTool(end.x, end.y, that.start.x, that.start.y);
-                return false;
+                
             } else if (ev.target.dataset.drag) {
                 var _x = parseInt(that.canvasMask.style.left) + that.canvasMask.width,
                     _y = parseInt(that.canvasMask.style.top) + that.canvasMask.height,
                     x0 = parseInt(that.canvasMask.style.left),
                     y0 = parseInt(that.canvasMask.style.top);
                 that.showTool(_x, _y, x0, y0);
+                
                 document.removeEventListener('mousemove', move);
+
             }
+            return false;
         }
         return {
             end: end
@@ -232,20 +245,55 @@ class Screen {
 
     // 选区完成显示工具栏
     showTool(x, y, _x, _y) {
+        
         this.tool.style.display = 'block';
-        this.tool.style.left = (_x < x ? x - 200 : _x) + 'px';
-        if ((screen.height - y) < 50) {
+        this.tool.style.left = (_x < x ? x - 110 : _x) + 'px';
+        if ((screen.height - y) < 50 && !(_y<21)) {
             this.tool.style.top = (_y - 21) + 'px';
-        } else {
-            this.tool.style.top = y + 'px';
+        } 
+        else if((screen.height - y) < 50 && _y<21 ){
+            this.tool.style.top = _y + 'px';
+        }
+        else {
+            this.tool.style.top = y+3 + 'px';
         }
         this.cuted = true;
         this.isShowTool = false;
+
+
+
+        // 这个方法不应该放在这里，与工具栏解耦
+        this.showCursor(x, y, _x, _y);
+    }
+
+    // 显示缩放框 
+    showCursor(x, y, _x, _y){
+        
+        this.leftTopCursor.style.top = _y +'px';
+        this.leftTopCursor.style.left =  _x +'px';
+
+        this.rightTopCursor.style.top =  _y +'px';
+        this.rightTopCursor.style.left = x-15 +'px';
+        
+        this.leftBottomCursor.style.top =  (y-15) +'px';
+        this.leftBottomCursor.style.left =  _x +'px';
+        
+        this.rightBottomCursor.style.left = ( x-15) +'px';
+        this.rightBottomCursor.style.top =  (y-15) +'px';
+
+        this.leftTopCursor.style.display = 'block';
+        this.rightTopCursor.style.display = 'block';
+        this.leftBottomCursor.style.display = 'block';
+        this.rightBottomCursor.style.display = 'block';
     }
 
     // 隐藏工具栏
     hideTool() {
         this.tool.style.display = 'none';
+        this.leftTopCursor.style.display = 'none';
+        this.rightTopCursor.style.display = 'none';
+        this.leftBottomCursor.style.display = 'none';
+        this.rightBottomCursor.style.display = 'none';
     }
 
     // 拖拽框设置
