@@ -43,9 +43,11 @@
             font-size: 12px;
             cursor: pointer;
         }
-        #canvas{
+        
+        #canvas {
             position: absolute;
         }
+        
         .tool {
             border-radius: 2px;
             display: none;
@@ -56,68 +58,74 @@
             z-index: 4;
             cursor: pointer;
         }
-        .tool span{
+        
+        .tool span {
             padding-left: 2px;
             vertical-align: middle;
             /* border: 1px solid #a9a6a6; */
             display: inline-block;
             background-size: 16px;
-            width:20px;
+            width: 20px;
             height: 16px;
         }
-        .save{
+        
+        .save {
             background: url('./asset/images/save.png') center center no-repeat;
         }
-        .back{
+        
+        .back {
             background: url('./asset/images/back.png') center center no-repeat;
         }
-        .ok{
+        
+        .ok {
             background: url('./asset/images/ok.png') center center no-repeat;
         }
-        .cancel{
+        
+        .cancel {
             background: url('./asset/images/cancel.png') center center no-repeat;
         }
-        .icon{
+        
+        .icon {
             display: inline-block;
             position: absolute;
             width: 15px;
             height: 15px;
-            background:transparent;
-            border:4px solid red;
+            background: transparent;
+            border: 4px solid red;
             display: none;
             z-index: 99;
         }
-        .left_top{
+        
+        .left_top {
             /* left:10px;
             top:10px; */
             border-bottom: 0;
             border-right: 0;
             cursor: nwse-resize;
-
         }
-        .left_bottom{
+        
+        .left_bottom {
             /* left:80px;
             top:10px; */
             border-top: 0;
             border-right: 0;
-            cursor:nesw-resize;
-
+            cursor: nesw-resize;
         }
-        .right_top{
+        
+        .right_top {
             /* left:10px;
             top:80px; */
             border-bottom: 0;
             border-left: 0;
             cursor: nesw-resize;
-
         }
-        .right_bottom{
+        
+        .right_bottom {
             /* left:80px;
             top:80px; */
             border-top: 0;
             border-left: 0;
             cursor: nwse-resize;
-
         }
     </style>
 </head>
@@ -133,10 +141,10 @@
         <span data-cancel='cancel' class="back" title="取消截图"></span>
         <span data-close='close' class="cancel" title="退出截图"></span>
     </div>
-    <span data-save='left_top' class="icon left_top"></span>
-    <span data-save='right_top' class="icon right_top"></span>
-    <span data-save='left_bottom' class="icon left_bottom"></span>
-    <span data-save='right_bottom' class="icon right_bottom"></span>
+    <span data-zoom='zoom' class="icon left_top"></span>
+    <span data-zoom='zoom' class="icon right_top"></span>
+    <span data-zoom='zoom' class="icon left_bottom"></span>
+    <span data-zoom='zoom' class="icon right_bottom"></span>
 </body>
 <script>
     require('./index');

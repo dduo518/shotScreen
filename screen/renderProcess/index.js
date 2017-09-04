@@ -36,7 +36,7 @@ class Screen {
         this.leftBottomCursor = document.querySelectorAll('.left_bottom')[0];
         this.rightBottomCursor = document.querySelectorAll('.right_bottom')[0];
 
-        
+
 
 
         // 原本是将屏幕截图image画到this.context画布上的 
@@ -97,6 +97,10 @@ class Screen {
 
         // 鼠标按下
         function down(ev) {
+            // console.log(ev)
+            document.onselectstart = function() {
+                return false;
+            }
             if (ev.target.dataset.done) {
                 that.done();
                 return false;
@@ -109,14 +113,18 @@ class Screen {
             } else if (ev.target.dataset.close) {
                 that.close();
                 return false;
-            } 
-            else if (ev.target.dataset.drag) {
+            } else if (ev.target.dataset.drag) {
                 that.canvas_x = ev.clientX - that.canvasMask.offsetLeft;
                 that.canvas_y = ev.clientY - that.canvasMask.offsetTop;
                 document.addEventListener('mousemove', move, false);
                 return false;
-            } 
-            else {
+            } else if (ev.target.dataset.zoom) {
+                console.log(ev.target.dataset.zoom)
+                that.start.x = ev.clientX - that.canvasMask.offsetLeft;
+                that.start.y = ev.clientY - that.canvasMask.offsetTop;
+                document.addEventListener('mousemove', move, false);
+                return false;
+            } else {
                 that.start.x = ev.pageX;
                 that.start.y = ev.pageY;
                 document.addEventListener('mousemove', move, false);
@@ -125,8 +133,9 @@ class Screen {
 
         // 鼠标移动
         function move(ev) {
+            console.log('ee')
             if (!that.cuted) {
-                // console.log('<<<---截图---->>>')
+                // console.log('<<<---cuted---->>>')
                 that.tipShow(end.x, end.y, that.start.x, that.start.y);
                 that.clearCtx();
                 end.x = ev.pageX;
@@ -135,27 +144,40 @@ class Screen {
                 that.maskShow(end.x, end.y, that.start.x, that.start.y);
                 return false;
             } else if (ev.target.dataset.drag) {
-                // console.log('<<<---移动---->>>')
+                console.log('<<<---drag---->>>')
                 that.dragEvent(ev.pageX, ev.pageY);
+                return false;
+            } else if (ev.target.dataset.zoom) {
+                // console.log('<<<---zoom---->>>')
+
+                // that.tipShow(end.x, end.y, that.start.x, that.start.y);
+                that.clearCtx();
+                // console.log(ev)
+                end.x = ev.pageX;
+                end.y = ev.pageY;
+                console.log(' %d | %d |%d |%d', end.x, end.y, that.start.x, that.start.y)
+
+                that.createRect(end.x, end.y, that.start.x, that.start.y);
+                that.maskShow(end.x, end.y, that.start.x, that.start.y);
                 return false;
             }
         }
 
         // 鼠标抬起
         function up(ev) {
-            if (!ev.target.dataset.done && !ev.target.dataset.cancel && !ev.target.dataset.save && !ev.target.dataset.close && !ev.target.dataset.drag) {
+            if (!ev.target.dataset.done && !ev.target.dataset.cancel && !ev.target.dataset.save && !ev.target.dataset.close && !ev.target.dataset.drag && !ev.target.dataset.zoom) {
                 end.x = ev.pageX;
                 end.y = ev.pageY;
                 document.removeEventListener('mousemove', move);
                 that.isShowTool && that.showTool(end.x, end.y, that.start.x, that.start.y);
-                
+
             } else if (ev.target.dataset.drag) {
                 var _x = parseInt(that.canvasMask.style.left) + that.canvasMask.width,
                     _y = parseInt(that.canvasMask.style.top) + that.canvasMask.height,
                     x0 = parseInt(that.canvasMask.style.left),
                     y0 = parseInt(that.canvasMask.style.top);
                 that.showTool(_x, _y, x0, y0);
-                
+
                 document.removeEventListener('mousemove', move);
 
             }
@@ -245,17 +267,15 @@ class Screen {
 
     // 选区完成显示工具栏
     showTool(x, y, _x, _y) {
-        
+
         this.tool.style.display = 'block';
         this.tool.style.left = (_x < x ? x - 110 : _x) + 'px';
-        if ((screen.height - y) < 50 && !(_y<21)) {
+        if ((screen.height - y) < 50 && !(_y < 21)) {
             this.tool.style.top = (_y - 21) + 'px';
-        } 
-        else if((screen.height - y) < 50 && _y<21 ){
+        } else if ((screen.height - y) < 50 && _y < 21) {
             this.tool.style.top = _y + 'px';
-        }
-        else {
-            this.tool.style.top = y+3 + 'px';
+        } else {
+            this.tool.style.top = y + 3 + 'px';
         }
         this.cuted = true;
         this.isShowTool = false;
@@ -267,19 +287,19 @@ class Screen {
     }
 
     // 显示缩放框 
-    showCursor(x, y, _x, _y){
-        
-        this.leftTopCursor.style.top = _y +'px';
-        this.leftTopCursor.style.left =  _x +'px';
+    showCursor(x, y, _x, _y) {
 
-        this.rightTopCursor.style.top =  _y +'px';
-        this.rightTopCursor.style.left = x-15 +'px';
-        
-        this.leftBottomCursor.style.top =  (y-15) +'px';
-        this.leftBottomCursor.style.left =  _x +'px';
-        
-        this.rightBottomCursor.style.left = ( x-15) +'px';
-        this.rightBottomCursor.style.top =  (y-15) +'px';
+        this.leftTopCursor.style.top = _y + 'px';
+        this.leftTopCursor.style.left = _x + 'px';
+
+        this.rightTopCursor.style.top = _y + 'px';
+        this.rightTopCursor.style.left = x - 15 + 'px';
+
+        this.leftBottomCursor.style.top = (y - 15) + 'px';
+        this.leftBottomCursor.style.left = _x + 'px';
+
+        this.rightBottomCursor.style.left = (x - 15) + 'px';
+        this.rightBottomCursor.style.top = (y - 15) + 'px';
 
         this.leftTopCursor.style.display = 'block';
         this.rightTopCursor.style.display = 'block';
@@ -343,10 +363,10 @@ class Screen {
 
     // 完成写入剪切板
     done() {
-            var imgData = this.RGBA2ImageData(this.imgData);
-            clipboard.writeImage(nativeImage.createFromDataURL(imgData));
-            this.close();
-        }
+        var imgData = this.RGBA2ImageData(this.imgData);
+        clipboard.writeImage(nativeImage.createFromDataURL(imgData));
+        this.close();
+    }
 
     // 保存制定路径
     save() {

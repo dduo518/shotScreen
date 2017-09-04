@@ -24,11 +24,11 @@ document.body.addEventListener('click', function(event) {
 })
 
 // 去除默认选择
-document.onselectstart = function(){
+document.onselectstart = function() {
     return false;
 }
 
-ipc.on('global-shortcut-capture',function(){
+ipc.on('global-shortcut-capture', function() {
     capturer().then(function(data) {
         win = createChildWin('/index.html', { fullscreen: true, width: 900, height: 800, alwaysOnTop: true, skipTaskbar: false, autoHideMenuBar: true, });
         // win.webContents.openDevTools()
