@@ -122,7 +122,7 @@ class Screen {
                 console.log(ev.target.dataset.zoom)
                 that.start.x = ev.clientX - that.canvasMask.offsetLeft;
                 that.start.y = ev.clientY - that.canvasMask.offsetTop;
-                document.addEventListener('mousemove', move, false);
+                //document.addEventListener('mousemove', move, false);
                 return false;
             } else {
                 that.start.x = ev.pageX;
