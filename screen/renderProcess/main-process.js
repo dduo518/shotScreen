@@ -13,12 +13,7 @@ var win = null;
 // 点击事件绑定
 document.body.addEventListener('click', function(event) {
     if (event.target.dataset.clipscreen) {
-        if (!win) {
-            capturer().then(function(data) {
-                win = createChildWin('/index.html', { fullscreen: true, width: 900, height: 800, alwaysOnTop: true, skipTaskbar: false, autoHideMenuBar: true, });
-                win.webContents.openDevTools()
-            });
-        }
+        screenShot ();
         return false;
     }
 })
@@ -27,6 +22,16 @@ document.body.addEventListener('click', function(event) {
 document.onselectstart = function() {
     return false;
 }
+
+function screenShot(){
+    if (!win) {
+        capturer().then(function(data) {
+            win = createChildWin('/index.html', { fullscreen: true, width: 900, height: 800, alwaysOnTop: true, skipTaskbar: false, autoHideMenuBar: true, });
+            // win.webContents.openDevTools()
+        });
+    }
+    return win;
+} 
 
 ipc.on('global-shortcut-capture', function() {
     capturer().then(function(data) {
@@ -87,3 +92,6 @@ function capturer() {
         })
     })
 }
+
+
+module.exports = screenShot;
