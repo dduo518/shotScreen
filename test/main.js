@@ -1,5 +1,5 @@
 var { app, BrowserWindow, globalShortcut, ipcMain, Tray } = require('electron');
-var screenShot = require('./screen/mainProcess/screenshot');
+var screenShot = require('./../screen/mainProcess');
 var _ = require('lodash');
 var path = require('path'),
     url = require('url');

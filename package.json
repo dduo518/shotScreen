@@ -6,6 +6,6 @@
         "lodash": "^4.17.4"
     },
     "scripts":{
-        "dev":"electron ."    
+        "dev":"electron ./test/main"    
     }
 }
