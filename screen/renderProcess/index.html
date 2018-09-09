@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            -webkit-app-region: no-drag;
+        }
+        
+        html,
+        body {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden
+        }
+        
+        #canvasMask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            cursor: move;
+            display: none;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .tipNum {
+            position: absolute;
+            background: rgba(0, 0, 0, .8);
+            color: #FFF;
+            z-index: 3;
+            /*display: none;*/
+            font-size: 12px;
+            cursor: pointer;
+        }
+        
+        #canvas {
+            position: absolute;
+        }
+        
+        .tool {
+            border-radius: 2px;
+            display: none;
+            position: absolute;
+            background: #FFF;
+            height: 20px;
+            width: 110px;
+            z-index: 4;
+            cursor: pointer;
+        }
+        
+        .tool span {
+            padding-left: 2px;
+            vertical-align: middle;
+            /* border: 1px solid #a9a6a6; */
+            display: inline-block;
+            background-size: 16px;
+            width: 20px;
+            height: 16px;
+        }
+        
+        .save {
+            background: url('./asset/images/save.png') center center no-repeat;
+        }
+        
+        .back {
+            background: url('./asset/images/back.png') center center no-repeat;
+        }
+        
+        .ok {
+            background: url('./asset/images/ok.png') center center no-repeat;
+        }
+        
+        .cancel {
+            background: url('./asset/images/cancel.png') center center no-repeat;
+        }
+        
+        .icon {
+            display: inline-block;
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: transparent;
+            border: 4px solid red;
+            display: none;
+            z-index: 99;
+        }
+        
+        .left_top {
+            /* left:10px;
+            top:10px; */
+            border-bottom: 0;
+            border-right: 0;
+            cursor: nwse-resize;
+        }
+        
+        .left_bottom {
+            /* left:80px;
+            top:10px; */
+            border-top: 0;
+            border-right: 0;
+            cursor: nesw-resize;
+        }
+        
+        .right_top {
+            /* left:10px;
+            top:80px; */
+            border-bottom: 0;
+            border-left: 0;
+            cursor: nesw-resize;
+        }
+        
+        .right_bottom {
+            /* left:80px;
+            top:80px; */
+            border-top: 0;
+            border-left: 0;
+            cursor: nwse-resize;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id='canvas'></canvas>
+    <canvas id='canvasMask' data-drag='drag'></canvas>
+    <!--<div data-drag='drag' id='drag'></div>-->
+    <span class="tipNum">200x200</span>
+    <div class="tool">
+        <span data-save='save' class="save" title="保存"></span>
+        <span data-done='done' class="ok" title="完成"></span>
+        <span data-cancel='cancel' class="back" title="取消截图"></span>
+        <span data-close='close' class="cancel" title="退出截图"></span>
+    </div>
+    <span data-zoom='zoom' class="icon left_top"></span>
+    <span data-zoom='zoom' class="icon right_top"></span>
+    <span data-zoom='zoom' class="icon left_bottom"></span>
+    <span data-zoom='zoom' class="icon right_bottom"></span>
+</body>
+<script>
+    require('./main-process');
+</script>
+
+</html>
