@@ -52,6 +52,7 @@ ipc.on('quit-cut', (message) => {
 function createChildWin(_url, opts) {
     var config = {
         fullscreen: true,
+        transparent: true,
         frame: false
     }
     config = Object.assign(config, opts)
