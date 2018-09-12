@@ -1,11 +1,22 @@
 {
-    "name": "screenshot",
-    "version": "0.1.0",
-    "main": "main.js",
-    "dependencies": {
-        "lodash": "^4.17.4"
-    },
-    "scripts":{
-        "dev":"electron ./test/main"    
-    }
+  "name": "screenshot",
+  "version": "0.1.0",
+  "main": "main.js",
+  "dependencies": {
+    "lodash": "^4.17.10",
+    "socket.io": "^2.1.1"
+  },
+  "scripts": {
+    "start": "node build/tasker",
+    "webdev": "webpack-dev-server --watch --env.NODE_ENV=development",
+    "appdev": "electron src/main",
+    "build": "webpack --env.NODE_ENV=production"
+  },
+  "devDependencies": {
+    "html-webpack-plugin": "^3.2.0",
+    "tree-kill": "^1.2.0",
+    "webpack": "^4.17.3",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.8"
+  }
 }
