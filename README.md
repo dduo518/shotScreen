@@ -1,6 +1,6 @@
 # shotScreen
 # electron 的一个web截图插件工具
-![示例](https://github.com/chong0808/shotScreen/blob/master/asset/images/11.png)
+![示例](https://github.com/chong0808/shotScreen/blob/master/asset/11.png)
 
 > 开发版本的桌面应用 https://github.com/chong0808/shotScreen/releases/tag/v1.0
 
