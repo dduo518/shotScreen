@@ -4,8 +4,16 @@ const socket = io('http://localhost');
 window.clipscreen = {};
 
 /**
- * 发送截图命令
+ * 发送截图命令 返回保存的路径跟base64的信息
  * @param {Function} callback 
+ * @return {Object} 
+ * {
+ *   type:"close",
+ *   message:{
+ *     base64:"data:image/png;base64,iVBORw0KGgoAAA",
+ *     path:"C:\Users\z_chong\Desktop\jietu.jpg"
+ *   }
+ * }
  */
 function sendMsg(callback) {
   socket.emit('clip','web', callback);

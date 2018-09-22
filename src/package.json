@@ -1,0 +1,9 @@
+{
+  "name": "screenshot",
+  "version": "0.1.0",
+  "main": "main.js",
+  "dependencies": {
+    "lodash": "^4.17.10",
+    "socket.io": "^2.1.1"
+  }
+}

@@ -3,14 +3,15 @@
   "version": "0.1.0",
   "main": "main.js",
   "dependencies": {
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.11",
     "socket.io": "^2.1.1"
   },
   "scripts": {
     "start": "node build/tasker",
     "webdev": "webpack-dev-server --watch --env.NODE_ENV=development",
-    "appdev": "electron src/main",
-    "build": "webpack --env.NODE_ENV=production"
+    "appdev": "electron src/main.js",
+    "build": "webpack --env.NODE_ENV=production",
+    "pack": "electron-packager ./src shotscreen --win --out ./dist/setup --arch=x64 --app-version=0.1.0 --electron-version=1.7.5"
   },
   "devDependencies": {
     "html-webpack-plugin": "^3.2.0",

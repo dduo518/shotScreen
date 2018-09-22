@@ -1,6 +1,6 @@
 var { app, BrowserWindow } = require('electron');
 var screenShot = require('./mainProcess');
-var _ = require('lodash');
+// var _ = require('lodash');
 var path = require('path'),
     url = require('url');
 var mainRenderUrl = "./index.html"
@@ -13,7 +13,7 @@ app.on("ready", function () {
 
 function createWindow(_url, opts) {
     var config = {}
-    config = _.assign(config, opts)
+    config = Object.assign(config, opts)
     var _win = new BrowserWindow(config);
     _win.loadURL(url.format({
             pathname: path.join(__dirname + _url),

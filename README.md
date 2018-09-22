@@ -10,6 +10,12 @@
 
 ### 文件结构
 ```
+├── dist  // 插件主要文件
+│   ├── setup
+│   │   ├── build  // 安装包资源
+│   │   └── shotscreen-win32-x64  // 打包的文件
+│   └── web // 渲染进程引入的文件
+│       └── shotScreen.js //  web页面需要引入的文件
 ├── src  // 插件主要文件
 │   ├── mainProcess
 │   │   └── index.js  // 主要负责通讯
