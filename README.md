@@ -10,7 +10,7 @@
 
 ### 文件结构
 ```
-├── dist  // 插件主要文件
+├── dist  // 生成的文件
 │   ├── setup
 │   │   ├── build  // 安装包资源
 │   │   └── shotscreen-win32-x64  // 打包的文件
@@ -37,9 +37,93 @@
 $ npm start  // 1.启动一个测试环境web服务器 2. 启动主应用程序
 ```
 #####　打开 http://localhost:8080/
-### TODO LIST
 
-1. 打包应用app
-2. 应用自动启动
-3. 应自动更新
+---
+
+### 文档
+#### 使用方式
+1. 安装包资源 shotscreen setup.exe 安装之后 默认全局截图快捷键 Ctrl+Alt+D
+2. web页面引入资源包 shotScreen.js 
+    
+```
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+<button id="shotScreen">截图</button>
+<button id="changeKey">修改配置</button>
+
+  
+<script type="text/javascript" src="app.js"></script><script type="text/javascript" src="shotScreen.js"></script></body>
+</html>
+
+```
+###### 或者
+
+```
+const shotScreen = require("./src/webScripts")
+const btn = document.getElementById("shotScreen");
+const changeKey = document.getElementById("changeKey");
+btn.addEventListener("click",function () {
+  shotScreen.sendMsg(function (data) {
+    console.log(data)
+  })
+})  
+
+changeKey.addEventListener("click", function () {
+  shotScreen.sendChangeKey({ shotKey: "ctrl+A", cancelShot:"ctrl+Z"})
+})  
+```
+##### 全局暴露 window.clipscreen 
+```
+/**
+ * 发送截图命令 返回保存的路径跟base64的信息
+ * @param {Function} callback 
+ * @return {Object} 
+ * {
+ *   type:"close",
+ *   message:{
+ *     base64:"data:image/png;base64,iVBORw0KGgoAAA",
+ *     path:"C:\Users\z_chong\Desktop\jietu.jpg"
+ *   }
+ * }
+ */
+ 
+/**
+ * 修改配置
+ * @param {Object} options
+ * 
+ * var options = {
+ *      shotKey:"",  // default 'Esc'
+ *      cancelShot:"", // default 'ctrl+shift+d'
+ *      
+ * }
+ * sendChangeKey(options)
+ *  
+ */
+ 
+window.clipscreen = {
+  sendMsg: sendMsg,  
+  sendChangeKey: sendChangeKey
+}
+
+module.exports = exports = {
+  sendMsg: sendMsg,
+  sendChangeKey: sendChangeKey
+};
+
+```
+
+### TODO LIST
+---
+- [x] 1. 打包应用app
+- [x] 2. 应用自动启动
+- [ ] 3. 应自动更新
 
